@@ -47,3 +47,11 @@ Hồ Sơ Cá Nhân: https://bdi.edu.vn/
 - Ghi chú :các dự án liên quan như vịnh hạ long,sapa,phú Quốc và quản lý tour hoặc hệ thống đặt vé bạn từng tham gia,CSKH .
 - Thái độ: Ngành du lịch cực kỳ coi trọng sự linh hoạt và kỹ năng giải quyết vấn đề (problem-solving).
 - Link Review Youtube: https://youtu.be/Ds3BanGiyMk?si=jIoR2mPq81jiyuUw
+
+# Thông Tin Chăm Sóc Khách Hàng Của Nhóm 6 Về Các Khu Du Lịch Nổi Tiếng Việt Nam
+
+<img width="1087" height="611" alt="Ảnh chụp màn hình 2026-02-03 145736" src="https://github.com/user-attachments/assets/b1e8808b-6cde-4d3c-90d6-803084e086b4" />
++ Tên: Đỗ Chí Bảo / MSSV: 24N01236 / Công việc: Chuyên xử lý các yêu cầu đặc biệt, phàn nàn và hỗ trợ khách hàng VIP. Có kinh nghiệm 10+ năm trong ngành du lịch.
+
+<img width="1085" height="612" alt="Ảnh chụp màn hình 2026-02-03 145752" src="https://github.com/user-attachments/assets/ab9e9e97-7f55-4139-8c38-1074732ad004" />
++ Tên: Lê Tuấn Minh / MSSV: 24N01225 / Công việc: Hỗ trợ đặt vé, thay đổi lịch trình và tư vấn tour, giàu kinh nghiệm với khách quốc tế.
