@@ -1,0 +1,171 @@
+/* 
+==============================================================================
+FILE: footer.css
+TÁC VỤ CHÍNH:
+  • Định kiểu cho chân trang (footer) của website
+  • Bố trí thông tin liên hệ, địa chỉ, điện thoại, email
+  • Bố trí bản đồ Google Maps
+  • Responsive design cho chân trang
+  • Sử dụng Flexbox/Grid cho bố trí các cột thông tin
+  • Định kiểu cho liên kết (link) trong footer
+==============================================================================
+*/
+
+#phan-chan-trang {
+    background-color: #1a1a1a;
+}
+
+/* Tổng thể footer */
+#chan-trang {
+    background-color: #000000;
+    /* Màu đen */
+    color: #ffffff;
+    padding: 60px 0 0 0;
+    /* Khoảng cách trên */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 100%;
+}
+
+/* Phần logo trường */
+.phan-logo-trang {
+    text-align: center;
+    padding: 30px 20px;
+    border-bottom: 2px solid #1abc9c;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.logo-trang-lon {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    filter: brightness(1.2);
+}
+
+.phan-logo-trang .tieu-de-chinh {
+    margin-bottom: 0;
+    font-size: 28px;
+    color: #1abc9c;
+}
+
+/* Tiêu đề chính */
+.tieu-de-chinh {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 50px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #ffffff;
+}
+
+/* Khung chứa 4 cột thông tin */
+.khung-noi-dung {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto 50px auto;
+    /* Căn giữa và tạo khoảng cách với bản đồ */
+    padding: 0 20px;
+}
+
+/* Từng cột */
+.cot-thong-tin {
+    flex: 1;
+    min-width: 200px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Tiêu đề của từng cột (Icon + Chữ) */
+.tieu-de-cot {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+/* Nội dung chữ trong cột */
+.cot-thong-tin p {
+    margin: 5px 0;
+    font-size: 15px;
+    color: #ffffff;
+    /* Màu xám nhẹ cho tinh tế */
+    line-height: 1.6;
+}
+
+.lien-ket {
+    color: #1abc9c;
+    display: block;
+    margin-bottom: 5px;
+    text-decoration: none;
+}
+
+.lien-ket:hover {
+    color: white;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.logo-bdi {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+/* Khung bản đồ phía dưới cùng */
+.khung-ban-do {
+    width: 100%;
+    max-width: 560px; /* compact default width for clarity */
+    margin: 12px auto;
+    line-height: 0;
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio for clear view */
+    height: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    transition: box-shadow 160ms ease;
+}
+
+.khung-ban-do iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+}
+
+@media (max-width: 900px) {
+    .khung-ban-do {
+        max-width: 480px;
+        padding-bottom: 56.25%;
+        margin: 10px auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .khung-ban-do {
+        max-width: 420px;
+        padding-bottom: 75%; /* taller on very narrow screens for readability */
+        margin: 12px 10px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .khung-ban-do {
+        max-width: 700px;
+        padding-bottom: 42%; /* slightly shorter on very wide screens */
+    }
+}

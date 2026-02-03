@@ -1,0 +1,160 @@
+<!-- 
+==============================================================================
+TRANG CHỦ - DANH SÁCH KHU DU LỊCH (index.html)
+==============================================================================
+Tác vụ chính:
+  • Hiển thị danh sách tất cả các khu du lịch nổi tiếng Việt Nam
+  • Cho phép người dùng tìm kiếm địa điểm theo từ khóa
+  • Cung cấp liên kết đến các trang khác (đặt vé, lịch sử, CSKH, mã giảm giá)
+  • Quản lý trạng thái đăng nhập người dùng
+  • Tải chân trang từ file footer.html
+  • Hiển thị thông tin chi tiết khi người dùng nhấn vào một khu du lịch
+
+Thành phần chính:
+  - Menu điều hướng với các tùy chọn khác nhau
+  - Thanh tìm kiếm để tìm kiếm địa điểm
+  - Container hiển thị các card du lịch
+  - Modal cửa sổ hiển thị thông tin chi tiết
+  - Chân trang
+==============================================================================
+-->
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Các Khu Du Lịch Nổi Tiếng - Việt Nam</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="footer.css">
+</head>
+
+<body>
+    <!-- Menu Điều Hướng -->
+    <nav class="menu-chinh">
+        <div class="menu-container">
+            <a href="index.html" class="menu-logo">🏠 Trang Chủ</a>
+            <button class="menu-toggle" id="menu-toggle">☰</button>
+            <div class="menu-links" id="menu-links">
+                <a href="index.html" class="active">Danh Sách</a>
+                <a href="ve.html">Đặt Vé</a>
+                <a href="history.html">Lịch Sử</a>
+                <a href="ma-giam-gia.html">🎉 Mã Giảm Giá</a>
+                <a href="cskh.html">CSKH</a>
+                <div id="menu-trang-thai-dang-nhap" class="menu-auth-group">
+                    <a href="login.html" class="menu-dang-nhap-dang-ky">🔐 Đăng Nhập</a>
+                </div>
+                <div id="menu-trang-thai-da-dang-nhap" class="menu-auth-group" style="display: none;">
+                    <span id="menu-ten-nguoi-dung" class="menu-ten-nguoi-dung"></span>
+                    <button id="menu-nut-dang-xuat" class="menu-nut-dang-xuat">🚪 Đăng Xuất</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="trang-chu">
+        <h1>CÁC KHU DU LỊCH NỔI TIẾNG VIỆT NAM</h1>
+        <p>Nhấn vào hình ảnh hoặc thẻ để xem thêm hình ảnh và thông tin chi tiết</p>
+
+        <div class="thanh-tim-kiem">
+            <input type="text" id="dau-vao-tim-kiem" placeholder="Tìm kiếm địa điểm du lịch...">
+            <button id="nut-tim-kiem">Tìm kiếm</button>
+        </div>
+
+        <div id="hop-the" class="hop-the"></div>
+    </header>
+    <!-- Cửa sổ hiển thị thông tin -->
+    <div id="hop-thong-tin" class="hop-thong-tin">
+        <span class="dong-mo-dai" onclick="dongThongTin()">×</span>
+
+        <h2 id="ten-dia-diem"></h2>
+        <p id="mo-ta"></p>
+
+        <div id="thu-vien-anh" class="thu-vien-anh"></div>
+    </div>
+
+    <footer id="phan-chan-trang"></footer>
+
+    <script>
+        // Hamburger Menu Toggle
+        const menuToggle = document.getElementById("menu-toggle");
+        const menuLinks = document.getElementById("menu-links");
+        
+        menuToggle.addEventListener("click", () => {
+            menuLinks.classList.toggle("active");
+        });
+
+        // Đóng menu khi click vào một link
+        menuLinks.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                menuLinks.classList.remove("active");
+            });
+        });
+
+        // Đóng menu khi resize màn hình
+        window.addEventListener("resize", () => {
+            if (window.innerWidth > 768) {
+                menuLinks.classList.remove("active");
+            }
+        });
+
+        // Kiểm tra trạng thái đăng nhập
+        function kiemTraDangNhap() {
+            const nguoiDung = JSON.parse(localStorage.getItem("nguoiDungDangNhap"));
+
+            if (nguoiDung) {
+                // Hiển thị trạng thái đã đăng nhập
+                document.getElementById("menu-trang-thai-dang-nhap").style.display = "none";
+                document.getElementById("menu-trang-thai-da-dang-nhap").style.display = "flex";
+                document.getElementById("menu-ten-nguoi-dung").textContent = "Xin chào, " + nguoiDung.hoTen;
+            } else {
+                // Hiển thị trạng thái chưa đăng nhập
+                document.getElementById("menu-trang-thai-dang-nhap").style.display = "block";
+                document.getElementById("menu-trang-thai-da-dang-nhap").style.display = "none";
+            }
+        }
+
+        // Xử lý đăng xuất từ menu
+        const menuNutDangXuat = document.getElementById("menu-nut-dang-xuat");
+        if (menuNutDangXuat) {
+            menuNutDangXuat.addEventListener("click", () => {
+                localStorage.removeItem("nguoiDungDangNhap");
+                kiemTraDangNhap();
+            });
+        }
+
+        // Reset tìm kiếm khi trang load
+        window.addEventListener("load", () => {
+            const dauVaoTimKiem = document.getElementById("dau-vao-tim-kiem");
+            if (dauVaoTimKiem) {
+                dauVaoTimKiem.value = "";
+            }
+        });
+
+        // Kiểm tra khi trang tải
+        kiemTraDangNhap();
+
+        // Tải chân trang từ file riêng
+        fetch("footer.html")
+            .then(response => response.text())
+            .then(content => {
+                // Trích xuất nội dung chân trang từ phản hồi
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(content, 'text/html');
+                const footerContent = doc.getElementById('chan-trang');
+                if (footerContent) {
+                    document.getElementById('phan-chan-trang').innerHTML = footerContent.innerHTML;
+                    // Sao chép CSS từ footer.css
+                    const link = document.createElement('link');
+                    link.rel = 'stylesheet';
+                    link.href = 'footer.css';
+                    document.head.appendChild(link);
+                }
+            })
+            .catch(error => console.log("Không thể tải chân trang:", error));
+    </script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

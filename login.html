@@ -1,0 +1,121 @@
+<!-- 
+==============================================================================
+TRANG ĐĂNG NHẬP / ĐĂNG KÝ (login.html)
+==============================================================================
+Tác vụ chính:
+  • Cung cấp form đăng nhập cho người dùng hiện có
+  • Cung cấp form đăng ký cho người dùng mới
+  • Xác thực thông tin đăng nhập (email và mật khẩu)
+  • Lưu thông tin tài khoản vào localStorage
+  • Cho phép chuyển đổi giữa form đăng nhập và đăng ký
+  • Hiển thị thông báo lỗi và thành công
+  • Quay lại trang chủ sau khi đăng nhập thành công
+
+Thành phần chính:
+  - Menu điều hướng
+  - Form đăng nhập (email, mật khẩu)
+  - Form đăng ký (họ tên, email, mật khẩu, xác nhận mật khẩu)
+  - Khu vực hiển thị thông báo
+  - Nút quay lại trang chủ
+==============================================================================
+-->
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập / Đăng Ký</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Menu Điều Hướng -->
+    <nav class="menu-chinh">
+        <div class="menu-container">
+            <a href="index.html" class="menu-logo">🏠 Trang Chủ</a>
+            <button class="menu-toggle" id="menu-toggle">☰</button>
+            <div class="menu-links" id="menu-links">
+                <a href="index.html">Danh Sách</a>
+                <a href="ve.html">Đặt Vé</a>
+                <a href="history.html">Lịch Sử</a>
+                <a href="ma-giam-gia.html">🎉 Mã Giảm Giá</a>
+                <a href="cskh.html">CSKH</a>
+                <a href="https://bdi.edu.vn/" class="menu-logo-truong" target="_blank" title="Trường Trung Cấp Công Nghiệp Bình Dương">
+                    <img src="https://bdi.edu.vn/favicon.ico" alt="Logo Trường" class="logo-truong-menu">
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hop-dang-nhap">
+        <button id="quay-ve-trang-chu" class="nut-quay-lai">← Quay về trang chủ</button>
+
+        <!-- Form Đăng Nhập -->
+        <div id="form-dang-nhap-container" class="form-container">
+            <h1>Đăng Nhập</h1>
+            <form id="form-dang-nhap">
+                <div class="form-group">
+                    <label for="email-dang-nhap">Email:</label>
+                    <input type="email" id="email-dang-nhap" placeholder="Nhập email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="mat-khau-dang-nhap">Mật khẩu:</label>
+                    <input type="password" id="mat-khau-dang-nhap" placeholder="Nhập mật khẩu" required>
+                </div>
+
+                <button type="submit" class="nut-gui-form">Đăng Nhập</button>
+            </form>
+            <p class="chuyen-form">Chưa có tài khoản? <a href="#" onclick="chuyenSangDangKy(event)">Đăng ký ngay</a></p>
+        </div>
+
+        <div id="thong-bao-auth" class="thong-bao"></div>
+
+        <!-- Form Đăng Ký -->
+        <div id="form-dang-ky-container" class="form-container" style="display: none;">
+            <h1>Đăng Ký</h1>
+            <form id="form-dang-ky">
+                <div class="form-group">
+                    <label for="ho-ten-dang-ky">Họ tên:</label>
+                    <input type="text" id="ho-ten-dang-ky" placeholder="Nhập họ tên" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email-dang-ky">Email:</label>
+                    <input type="email" id="email-dang-ky" placeholder="Nhập email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="mat-khau-dang-ky">Mật khẩu:</label>
+                    <input type="password" id="mat-khau-dang-ky" placeholder="Nhập mật khẩu" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="xac-nhan-mat-khau">Xác nhận mật khẩu:</label>
+                    <input type="password" id="xac-nhan-mat-khau" placeholder="Xác nhận mật khẩu" required>
+                </div>
+
+                <button type="submit" class="nut-gui-form">Đăng Ký</button>
+            </form>
+
+            <p class="chuyen-form">Đã có tài khoản? <a href="#" onclick="chuyenSangDangNhap(event)">Đăng nhập ngay</a></p>
+        </div>
+    </div>
+
+    <footer id="phan-chan-trang"></footer>
+
+    <script src="menu.js"></script>
+    <script src="login.js"></script>
+    <script>
+        // Tải chân trang từ file riêng
+        fetch("footer.html")
+            .then(response => response.text())
+            .then(content => {
+                document.getElementById("phan-chan-trang").innerHTML = content;
+            })
+            .catch(error => console.log("Không thể tải chân trang:", error));
+    </script>
+</body>
+
+</html>

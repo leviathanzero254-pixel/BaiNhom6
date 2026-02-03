@@ -1,0 +1,66 @@
+<!-- 
+==============================================================================
+CHÂN TRANG - FOOTER (footer.html)
+==============================================================================
+Tác vụ chính:
+  • Cung cấp thông tin liên hệ công ty
+  • Hiển thị địa chỉ, số điện thoại, email
+  • Cung cấp các liên kết đến social media
+  • Những bản đồ Google Maps
+  • Được tải động vào tất cả các trang khác thông qua fetch API
+  • Sử dụng footer.css để định kiểu
+
+Thành phần chính:
+  - Tiêu đề chân trang
+  - Thông tin địa chỉ
+  - Thông tin điện thoại (hotline)
+  - Thông tin email và liên kết
+  - Bản đồ vị trí công ty
+==============================================================================
+-->
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="footer.css">
+</head>
+
+<body>
+    <div id="chan-trang">
+        <h2 class="tieu-de-chinh">Liên Hệ Chúng Tôi</h2>
+
+        <div class="khung-noi-dung">
+            <div class="cot-thong-tin">
+                <div class="tieu-de-cot">📍 Địa Chỉ</div>
+                <p>Số 79, Đường DT 743</p>
+                <p>Phường Bình Hòa, TP.HỒ CHÍ MINH</p>
+            </div>
+
+            <div class="cot-thong-tin">
+                <div class="tieu-de-cot">📞 Điện Thoại</div>
+                <p>0986 265 679</p>
+                <p>0912 284 667</p>
+            </div>
+
+            <div class="cot-thong-tin">
+                <div class="tieu-de-cot">📧 Email</div>
+                <p>
+                    <a href="https://www.facebook.com/bdi.edu.vn/"
+                        class="lien-ket">https://www.facebook.com/bdi.edu.vn/ : Trường Trung Cấp Công Nghiệp Bình Dương</a>
+                </p>
+                <p>
+                    <a href="https://bdi.edu.vn/" class="lien-ket">https://bdi.edu.vn/ : Trường Trung Cấp Công Nghiệp Bình Dương</a>
+                </p>
+                 <p>
+                    <a href="mailto:truongtccnbd@gmail.com" class="lien-ket">mailto:truongtccnbd@gmail.com : Trường Trung Cấp Công Nghiệp Bình Dương</a>
+                </p>
+            </div>
+
+            <div class="khung-ban-do">
+                <iframe title="Bản đồ công ty" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2328.9510233606707!2d106.76677042831282!3d10.977473132438321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174da34c7159483%3A0xeb496501042687fe!2zVHLGsOG7nW5nIFRydW5nIEPhuqVwIEPDtG5nIE5naGnhu4dwIELDrW5oIETGsMahbmc!5e0!3m2!1svi!2s!4v1769053322741!5m2!1svi!2s" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+</body>
+
+</html>

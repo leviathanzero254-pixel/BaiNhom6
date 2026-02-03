@@ -1,0 +1,66 @@
+<!-- 
+==============================================================================
+TRANG CHI TIẾT ĐỊA ĐIỂM DU LỊCH (chitiet.html)
+==============================================================================
+Tác vụ chính:
+  • Hiển thị thông tin chi tiết về một khu du lịch cụ thể
+  • Hiển thị hình ảnh chi tiết của khu du lịch
+  • Lấy dữ liệu từ localStorage (dữ liệu được truyền từ trang chủ)
+  • Hiển thị mô tả đầy đủ của địa điểm
+  • Cung cấp nút quay lại trang chủ
+  • Hiển thị thư viện hình ảnh bổ sung
+
+Thành phần chính:
+  - Menu điều hướng
+  - Nút quay lại
+  - Tiêu đề và hình ảnh chính của địa điểm
+  - Mô tả chi tiết
+  - Thư viện hình ảnh bổ sung
+==============================================================================
+-->
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết địa điểm du lịch</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Menu Điều Hướng -->
+    <nav class="menu-chinh">
+        <div class="menu-container">
+            <a href="index.html" class="menu-logo">🏠 Trang Chủ</a>
+            <button class="menu-toggle" id="menu-toggle">☰</button>
+            <div class="menu-links" id="menu-links">
+                <a href="index.html" class="active">Danh Sách</a>
+                <a href="ve.html">Đặt Vé</a>
+                <a href="history.html">Lịch Sử</a>
+                <a href="cskh.html">CSKH</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hop-chi-tiet">
+        <button id="quay-ve-trang-chu" class="nut-quay-lai">← Quay về trang chủ</button>
+        <div id="noi-dung"></div>
+    </div>
+
+    <footer id="phan-chan-trang"></footer>
+
+    <script src="menu.js"></script>
+    <script src="chitiet.js"></script>
+    <script>
+        // Tải chân trang từ file riêng
+        fetch("footer.html")
+            .then(response => response.text())
+            .then(content => {
+                document.getElementById("phan-chan-trang").innerHTML = content;
+            })
+            .catch(error => console.log("Không thể tải chân trang:", error));
+    </script>
+</body>
+
+</html>

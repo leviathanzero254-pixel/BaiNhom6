@@ -1,0 +1,176 @@
+<!-- 
+==============================================================================
+TRANG ĐẶT VÉ DU LỊCH (ve.html)
+==============================================================================
+Tác vụ chính:
+  • Cung cấp form đặt vé cho khách hàng
+  • Hiển thị bảng tính giá vé theo loại vé và số người
+  • Cho phép nhập mã giảm giá và tính tiền giảm
+  • Xác thực trạng thái đăng nhập người dùng
+  • Lưu thông tin đặt vé vào localStorage
+  • Hiển thị tóm tắt giá vé trước khi đặt
+  • Yêu cầu xác thực trước khi đặt vé
+
+Thành phần chính:
+  - Menu điều hướng
+  - Thông tin người dùng và nút đăng xuất
+  - Form đặt vé (địa điểm, họ tên, điện thoại, email, ngày, số người)
+  - Chọn loại vé (người lớn, trẻ em, người cao tuổi)
+  - Ô nhập mã giảm giá
+  - Hiển thị tính toán giá vé
+  - Nút đặt vé
+==============================================================================
+-->
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt Vé Du Lịch</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Menu Điều Hướng -->
+    <nav class="menu-chinh">
+        <div class="menu-container">
+            <a href="index.html" class="menu-logo">🏠 Trang Chủ</a>
+            <button class="menu-toggle" id="menu-toggle">☰</button>
+            <div class="menu-links" id="menu-links">
+                <a href="index.html">Danh Sách</a>
+                <a href="ve.html" class="active">Đặt Vé</a>
+                <a href="history.html">Lịch Sử</a>
+                <a href="ma-giam-gia.html">🎉 Mã Giảm Giá</a>
+                <a href="cskh.html">CSKH</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hop-chi-tiet">
+        <button id="quay-ve-trang-chu" class="nut-quay-lai">← Quay về trang chủ</button>
+        <div id="trang-thai-xac-thuc">
+            <span id="ten-nguoi-dung-ve"></span>
+            <a href="history.html" class="nut-lich-su">Lịch sử đặt vé</a>
+            <button id="nut-dang-xuat-ve" class="nut-dang-xuat">Đăng Xuất</button>
+        </div>
+        <h1>Đặt Vé Du Lịch</h1>
+
+        <div class="bieu-mau-dat-ve">
+            <form id="bieu-mau-dat-ve">
+                <div class="form-group">
+                    <label for="dia-diem-chon">Chọn địa điểm:</label>
+                    <select id="dia-diem-chon" required>
+                        <option value="">-- Chọn địa điểm --</option>
+                        <option value="Vịnh Hạ Long">Vịnh Hạ Long</option>
+                        <option value="Huế">Huế</option>
+                        <option value="Đà Nẵng">Đà Nẵng</option>
+                        <option value="Hội An">Hội An</option>
+                        <option value="Nha Trang">Nha Trang</option>
+                        <option value="Sapa">Sapa</option>
+                        <option value="Vũng Tàu">Vũng Tàu</option>
+                        <option value="Đà Lạt">Đà Lạt</option>
+                        <option value="Phú Quốc">Phú Quốc</option>
+                        <option value="Phú Quý">Phú Quý</option>
+                        <option value="Cao Bằng">Cao Bằng</option>
+                        <option value="Hải Phòng">Hải Phòng</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="ho-ten-khach">Họ tên:</label>
+                    <input type="text" id="ho-ten-khach" placeholder="Nhập họ tên" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="so-dien-thoai-khach">Số điện thoại:</label>
+                    <input type="tel" id="so-dien-thoai-khach" placeholder="Nhập số điện thoại" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email-khach">Email:</label>
+                    <input type="email" id="email-khach" placeholder="Nhập email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="ngay-khoi-hanh-chon">Ngày khởi hành:</label>
+                    <input type="date" id="ngay-khoi-hanh-chon" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="so-nguoi-chon">Số người:</label>
+                    <input type="number" id="so-nguoi-chon" placeholder="Nhập số người" min="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loai-ve-chon">Loại vé:</label>
+                    <select id="loai-ve-chon" required>
+                        <option value="">-- Chọn loại vé --</option>
+                        <option value="Người lớn (1.000.000 VNĐ)">Người lớn (1.000.000 VNĐ)</option>
+                        <option value="Trẻ em (500.000 VNĐ)">Trẻ em (500.000 VNĐ)</option>
+                        <option value="Người cao tuổi (700.000 VNĐ)">Người cao tuổi (700.000 VNĐ)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="ghi-chu-them">Ghi chú (tùy chọn):</label>
+                    <textarea id="ghi-chu-them" placeholder="Nhập ghi chú thêm..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="ma-giam-gia">Mã giảm giá (tùy chọn):</label>
+                    <div class="nhom-ma-giam-gia">
+                        <input type="text" id="ma-giam-gia" placeholder="Nhập mã giảm giá">
+                        <button type="button" id="nut-ap-dung-giam-gia" class="nut-ap-dung">Áp Dụng</button>
+                        <button type="button" id="nut-xoa-giam-gia" class="nut-xoa" onclick="xoaMaGiamGia()" style="display: none;">Xóa</button>
+                    </div>
+                    <div id="thong-bao-ma-giam-gia" class="thong-bao-ma-giam"></div>
+                </div>
+
+                <div id="tong-tien-container" class="tong-tien-container" style="display: none;">
+                    <h3>Tóm Tắt Giá Vé</h3>
+                    <div class="hang-tong-tien">
+                        <span>Giá vé:</span>
+                        <span id="hien-thi-gia-ve">0 VNĐ</span>
+                    </div>
+                    <div class="hang-tong-tien">
+                        <span>Số người:</span>
+                        <span id="hien-thi-so-nguoi">0</span>
+                    </div>
+                    <div class="hang-tong-tien">
+                        <span>Tổng cộng:</span>
+                        <span id="hien-thi-tong-truoc-giam">0 VNĐ</span>
+                    </div>
+                    <div id="hang-giam-gia" class="hang-giam-gia" style="display: none;">
+                        <span id="hien-thi-phan-tram-giam">Giảm giá (0%):</span>
+                        <span id="hien-thi-tien-giam">0 VNĐ</span>
+                    </div>
+                    <div class="hang-tong-tien tong-tien-chinh">
+                        <span><strong>Tổng Tiền:</strong></span>
+                        <span id="hien-thi-tong-tien"><strong>0 VNĐ</strong></span>
+                    </div>
+                </div>
+
+                <button type="submit" class="nut-gui-form">Đặt Vé</button>
+            </form>
+        </div>
+
+        <div id="thong-bao-ket-qua" class="thong-bao"></div>
+    </div>
+
+    <footer id="phan-chan-trang"></footer>
+
+    <script src="menu.js"></script>
+    <script src="ve.js"></script>
+    <script>
+        // Tải chân trang từ file riêng
+        fetch("footer.html")
+            .then(response => response.text())
+            .then(content => {
+                document.getElementById("phan-chan-trang").innerHTML = content;
+            })
+            .catch(error => console.log("Không thể tải chân trang:", error));
+    </script>
+</body>
+
+</html>

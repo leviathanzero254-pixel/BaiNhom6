@@ -1,0 +1,107 @@
+/* 
+==============================================================================
+FILE: style_thanhtoan.css
+TÁC VỤ CHÍNH:
+  • Định kiểu cho các nút và phần tử liên quan đến thanh toán
+  • Quản lý kiểu cho nút \"Thanh Toán\" trên trang lịch sử
+  • Quản lý kiểu cho nút \"Thanh Toán Online\"
+  • Hiệu ứng hover cho các nút
+  • Trạng thái disabled (vô hiệu hóa) cho các nút
+  • Bố trí nút trong hàng tác vụ
+==============================================================================
+*/
+
+/* Nút thanh toán trong lịch sử */
+.hang-nut-hanh-dong {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.nut-thanh-toan {
+    flex: 1;
+    padding: 10px 15px;
+    font-size: 13px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+.nut-thanh-toan:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nut-thanh-toan-online {
+    flex: 1;
+    padding: 10px 15px;
+    font-size: 13px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+.nut-thanh-toan-online:hover:not(:disabled) {
+    background-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nut-thanh-toan-online:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+.nut-huy-ve {
+    flex: 1;
+    padding: 10px 15px;
+    font-size: 13px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+.nut-huy-ve:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Trạng thái thanh toán */
+.trang-thai-thanh-toan {
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.the-ve.da-thanh-toan {
+    border-left-color: #28a745 !important;
+}
+
+.the-ve.chua-thanh-toan {
+    border-left-color: #ffc107 !important;
+}
+
+.the-ve.da-thanh-toan .trang-thai-thanh-toan {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.the-ve.chua-thanh-toan .trang-thai-thanh-toan {
+    background-color: #fff3cd;
+    color: #856404;
+}

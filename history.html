@@ -1,0 +1,80 @@
+<!-- 
+==============================================================================
+TRANG LỊCH SỬ ĐẶT VÉ (history.html)
+==============================================================================
+Tác vụ chính:
+  • Hiển thị lịch sử tất cả các vé đã đặt của người dùng
+  • Cho phép xem chi tiết từng vé
+  • Cho phép hủy vé cụ thể hoặc xóa toàn bộ lịch sử
+  • Cho phép thanh toán online cho vé chưa thanh toán
+  • Hiển thị trạng thái thanh toán của mỗi vé
+  • Xác thực trạng thái đăng nhập người dùng
+  • Hiển thị danh sách vé theo thứ tự mới nhất trước
+
+Thành phần chính:
+  - Menu điều hướng
+  - Thông tin người dùng và nút đăng xuất
+  - Nút xóa toàn bộ lịch sử
+  - Danh sách các vé đã đặt
+  - Chi tiết từng vé (địa điểm, họ tên, ngày khởi hành, số người, etc.)
+  - Nút thanh toán online và hủy vé
+==============================================================================
+-->
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch Sử Đặt Vé</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Menu Điều Hướng -->
+    <nav class="menu-chinh">
+        <div class="menu-container">
+            <a href="index.html" class="menu-logo">🏠 Trang Chủ</a>
+            <button class="menu-toggle" id="menu-toggle">☰</button>
+            <div class="menu-links" id="menu-links">
+                <a href="index.html">Danh Sách</a>
+                <a href="ve.html">Đặt Vé</a>
+                <a href="history.html" class="active">Lịch Sử</a>
+                <a href="ma-giam-gia.html">🎉 Mã Giảm Giá</a>
+                <a href="cskh.html">CSKH</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hop-chi-tiet">
+        <button id="quay-ve-trang-chu" class="nut-quay-lai">← Quay về trang chủ</button>
+        <div id="trang-thai-xac-thuc-history">
+            <span id="ten-nguoi-dung-history"></span>
+            <button id="nut-dang-xuat-history" class="nut-dang-xuat">Đăng Xuất</button>
+        </div>
+        <h1>Lịch Sử Đặt Vé</h1>
+
+        <div class="thanh-tac-vu">
+            <button id="nut-xoa-lich-su" class="nut-xoa">🗑️ Xóa Lịch Sử</button>
+        </div>
+
+        <div id="danh-sach-ve" class="danh-sach-ve"></div>
+        <div id="thong-bao-rong" class="thong-bao-rong"></div>
+    </div>
+
+    <footer id="phan-chan-trang"></footer>
+
+    <script src="menu.js"></script>
+    <script src="history.js"></script>
+    <script>
+        // Tải chân trang từ file riêng
+        fetch("footer.html")
+            .then(response => response.text())
+            .then(content => {
+                document.getElementById("phan-chan-trang").innerHTML = content;
+            })
+            .catch(error => console.log("Không thể tải chân trang:", error));
+    </script>
+</body>
+
+</html>

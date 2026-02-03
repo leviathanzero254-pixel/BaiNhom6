@@ -1,0 +1,366 @@
+<!-- 
+==============================================================================
+TRANG THANH TOÁN ONLINE (thanh-toan-online.html)
+==============================================================================
+Tác vụ chính:
+  • Cung cấp giao diện thanh toán online cho các vé du lịch
+  • Hiển thị chi tiết vé cần thanh toán
+  • Cho phép chọn phương thức thanh toán (thẻ tín dụng, ví điện tử, chuyển khoản)
+  • Xác thực thông tin thanh toán
+  • Giả lập xử lý thanh toán
+  • Cập nhật trạng thái vé thành "Đã thanh toán"
+  • Quay trở lại trang lịch sử sau khi thanh toán thành công
+  • Format dữ liệu nhập (số thẻ, hạn sử dụng, CVV)
+
+Thành phần chính:
+  - Chi tiết vé cần thanh toán
+  - Lựa chọn phương thức thanh toán
+  - Form nhập thông tin thẻ (số thẻ, hạn sử dụng, CVV, tên chủ thẻ)
+  - Form ví điện tử (số điện thoại)
+  - Thông tin chuyển khoản ngân hàng
+  - Nút thanh toán và hủy
+==============================================================================
+-->
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán Online</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .hop-thanh-toan {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .tieu-de-thanh-toan {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .tieu-de-thanh-toan h1 {
+            color: #333;
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .chi-tiet-ve-thanh-toan {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+
+        .hang-thong-tin {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .hang-thong-tin .nhan {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .hang-thong-tin .gia-tri {
+            color: #333;
+        }
+
+        .hang-tong-tien {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 15px;
+            border-top: 2px solid #ddd;
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .hang-tong-tien .nhan {
+            color: #333;
+        }
+
+        .hang-tong-tien .gia-tri {
+            color: #28a745;
+        }
+
+        .phuong-thuc-thanh-toan {
+            margin-bottom: 30px;
+        }
+
+        .phuong-thuc-thanh-toan h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .danh-sach-phuong-thuc {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .phuong-thuc-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .phuong-thuc-item:hover {
+            border-color: #28a745;
+            background: #f0fff4;
+        }
+
+        .phuong-thuc-item input[type="radio"] {
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        .phuong-thuc-item.active {
+            border-color: #28a745;
+            background: #f0fff4;
+        }
+
+        .ten-phuong-thuc {
+            font-weight: 500;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .form-thong-tin-the {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .form-thong-tin-the.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #28a745;
+            box-shadow: 0 0 5px rgba(40, 167, 69, 0.2);
+        }
+
+        .hang-2-cot {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .hang-2-cot .form-group {
+            margin-bottom: 0;
+        }
+
+        .hang-nut-action {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .nut-huy {
+            flex: 1;
+            padding: 12px 20px;
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .nut-huy:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .nut-thanh-toan {
+            flex: 1;
+            padding: 12px 20px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .nut-thanh-toan:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .nut-thanh-toan:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .thong-bao-loi {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .thong-bao-loi.active {
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .hop-thanh-toan {
+                margin: 20px 15px;
+                padding: 20px;
+            }
+
+            .hang-2-cot {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hop-thanh-toan">
+        <div class="tieu-de-thanh-toan">
+            <h1>💳 Thanh Toán Online</h1>
+        </div>
+
+        <div id="chi-tiet-ve" class="chi-tiet-ve-thanh-toan"></div>
+
+        <div class="thong-bao-loi" id="thong-bao-loi"></div>
+
+        <div class="phuong-thuc-thanh-toan">
+            <h3>Chọn Phương Thức Thanh Toán</h3>
+            <div class="danh-sach-phuong-thuc" id="danh-sach-phuong-thuc">
+                <label class="phuong-thuc-item active" onclick="chonPhuongThuc(event, 'the-tin-dung')">
+                    <input type="radio" name="phuong-thuc" value="the-tin-dung" checked>
+                    <span class="ten-phuong-thuc">💳 Thẻ Tín Dụng / Thẻ Ghi Nợ</span>
+                </label>
+                <label class="phuong-thuc-item" onclick="chonPhuongThuc(event, 'vi-dien-tu')">
+                    <input type="radio" name="phuong-thuc" value="vi-dien-tu">
+                    <span class="ten-phuong-thuc">📱 Ví Điện Tử (Momo, ZaloPay)</span>
+                </label>
+                <label class="phuong-thuc-item" onclick="chonPhuongThuc(event, 'chuyen-khoan')">
+                    <input type="radio" name="phuong-thuc" value="chuyen-khoan">
+                    <span class="ten-phuong-thuc">🏦 Chuyển Khoản Ngân Hàng</span>
+                </label>
+            </div>
+        </div>
+
+        <div id="form-thong-tin-the" class="form-thong-tin-the active">
+            <h4 style="margin-top: 0; color: #333;">Thông Tin Thẻ</h4>
+            <div class="form-group">
+                <label>Số Thẻ</label>
+                <input type="text" id="so-the" placeholder="1234 5678 9012 3456" maxlength="19">
+            </div>
+            <div class="hang-2-cot">
+                <div class="form-group">
+                    <label>Hạn Sử Dụng (MM/YY)</label>
+                    <input type="text" id="han-su-dung" placeholder="12/25" maxlength="5">
+                </div>
+                <div class="form-group">
+                    <label>CVV</label>
+                    <input type="text" id="cvv" placeholder="123" maxlength="3">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Tên Chủ Thẻ</label>
+                <input type="text" id="ten-chu-the" placeholder="NGUYEN VAN A">
+            </div>
+        </div>
+
+        <div id="form-thong-tin-vi" class="form-thong-tin-the">
+            <h4 style="margin-top: 0; color: #333;">Thông Tin Ví Điện Tử</h4>
+            <div class="form-group">
+                <label>Số Điện Thoại Liên Kết</label>
+                <input type="tel" id="so-dien-thoai-vi" placeholder="09xxxxxxxx">
+            </div>
+            <p style="color: #666; font-size: 14px; margin-top: 10px;">
+                Bạn sẽ nhận được thông báo xác nhận trên ứng dụng Momo hoặc ZaloPay của mình.
+            </p>
+        </div>
+
+        <div id="form-thong-tin-nh" class="form-thong-tin-the">
+            <h4 style="margin-top: 0; color: #333;">Thông Tin Chuyển Khoản</h4>
+            <div class="form-group">
+                <label>Chọn Ngân Hàng</label>
+                <select style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+                    <option>Vietcombank (VCB)</option>
+                    <option>BIDV</option>
+                    <option>Agribank</option>
+                    <option>TPBank</option>
+                    <option>Techcombank</option>
+                </select>
+            </div>
+            <p style="color: #666; font-size: 14px; margin-top: 10px;">
+                <strong>Tài Khoản Nhận:</strong> 12345678901 - Tên Du Lịch Việt<br>
+                <strong>Chi Nhánh:</strong> BÌNH DƯƠNG<br>
+                <strong>Nội Dung:</strong> Thanh toán vé du lịch
+            </p>
+        </div>
+
+        <div class="hang-nut-action">
+            <button class="nut-huy" onclick="huyChuongTrinh()">Hủy</button>
+            <button class="nut-thanh-toan" id="nut-thanh-toan" onclick="xacNhanThanhToan()">✓ Thanh Toán Ngay</button>
+        </div>
+    </div>
+
+    <footer id="phan-chan-trang"></footer>
+
+    <script src="menu.js"></script>
+    <script src="thanh-toan-online.js"></script>
+    <script>
+        // Tải chân trang từ file riêng
+        fetch("footer.html")
+            .then(response => response.text())
+            .then(content => {
+                document.getElementById("phan-chan-trang").innerHTML = content;
+            })
+            .catch(error => console.log("Không thể tải chân trang:", error));
+    </script>
+</body>
+
+</html>

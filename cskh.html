@@ -1,0 +1,352 @@
+<!-- 
+==============================================================================
+TRANG CHĂM SÓC KHÁCH HÀNG (cskh.html)
+==============================================================================
+Tác vụ chính:
+  • Hiển thị thông tin các nhân viên chăm sóc khách hàng
+  • Cung cấp thông tin liên hệ của từng nhân viên
+  • Hiển thị thời gian làm việc của nhân viên
+  • Cung cấp thông tin liên hệ công ty tổng quát
+  • Những bản đồ Google Maps với địa chỉ công ty
+  • Hiển thị hotline và email hỗ trợ
+  • Cung cấp thông tin chi tiết về dịch vụ CSKH
+
+Thành phần chính:
+  - Menu điều hướng
+  - Nút quay lại trang chủ
+  - Tiêu đề và mô tả trang
+  - Danh sách thành viên CSKH (card với ảnh, tên, chức vụ, liên hệ)
+  - Phần thông tin liên hệ công ty (địa chỉ, hotline, email)
+  - Bản đồ vị trí công ty
+==============================================================================
+-->
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chăm Sóc Khách Hàng</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .hop-cskh {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 30px;
+        }
+
+        .hop-cskh h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .mo-ta-cskh {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+
+        .danh-sach-thanh-vien {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .the-thanh-vien {
+            background: rgb(237, 229, 229);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .the-thanh-vien:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .anh-thanh-vien {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #f6ee05 0%, #b63531 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgb(238, 229, 229);
+            font-size: 20px;
+            object-fit: contain;
+        }
+
+        .thong-tin-thanh-vien {
+            padding: 25px;
+        }
+
+        .ten-thanh-vien {
+            font-size: 20px;
+            font-weight: bold;
+            color: #161414;
+            margin-bottom: 8px;
+        }
+
+        .chuc-vu {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .lien-he {
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        .hang-lien-he {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .hang-lien-he:last-child {
+            margin-bottom: 0;
+        }
+
+        .bieu-tuong {
+            margin-right: 10px;
+            font-size: 16px;
+            min-width: 20px;
+        }
+
+        .mo-ta-thanh-vien {
+            font-size: 13px;
+            color: #888;
+            line-height: 1.6;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .phan-lien-he-them {
+            background: #f5f5f5;
+            padding: 40px;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+
+        .phan-lien-he-them h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .thong-tin-lien-he {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .item-lien-he {
+            text-align: center;
+        }
+
+        .item-lien-he .icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .item-lien-he h3 {
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .item-lien-he p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .item-lien-he a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .item-lien-he a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .hop-cskh {
+                padding: 20px;
+            }
+
+            .hop-cskh h1 {
+                font-size: 24px;
+            }
+
+            .danh-sach-thanh-vien {
+                grid-template-columns: 1fr;
+            }
+
+            .phan-lien-he-them {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Menu Điều Hướng -->
+    <nav class="menu-chinh">
+        <div class="menu-container">
+            <a href="index.html" class="menu-logo">🏠 Trang Chủ</a>
+            <button class="menu-toggle" id="menu-toggle">☰</button>
+            <div class="menu-links" id="menu-links">
+                <a href="index.html">Danh Sách</a>
+                <a href="ve.html">Đặt Vé</a>
+                <a href="history.html">Lịch Sử</a>
+                <a href="ma-giam-gia.html">🎉 Mã Giảm Giá</a>
+                <a href="cskh.html" class="active">CSKH</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hop-cskh">
+        <button id="quay-ve-trang-chu" class="nut-quay-lai">← Quay về trang chủ</button>
+        
+        <h1>💼 Chăm Sóc Khách Hàng</h1>
+        <p class="mo-ta-cskh">Đội ngũ chuyên nghiệp luôn sẵn sàng hỗ trợ bạn</p>
+
+        <div class="danh-sach-thanh-vien">
+            <!-- Thành viên 1: ĐỖ Chí Bảo -->
+            <div class="the-thanh-vien">
+                <img src="image/Zero_Intro.webp" alt="ĐỖ CHÍ BẢO" class="anh-thanh-vien">
+                <div class="thong-tin-thanh-vien">
+                    <div class="ten-thanh-vien">ĐỖ CHÍ BẢO</div>
+                    <div class="chuc-vu">👔 Trưởng Phòng CSKH</div>
+                    <div class="lien-he">
+                        <div class="hang-lien-he">
+                            <span class="bieu-tuong">📞</span>
+                            <span>0986 265 679</span>
+                        </div>
+                        <div class="hang-lien-he">
+                            <span class="bieu-tuong">📧</span>
+                            <span>https://bdi.edu.vn/</span>
+                        </div>
+                        <div>
+                            <!-- <a href="https://en.wikipedia.org/wiki/User:%C4%90%E1%BB%97_Ch%C3%AD_B%E1%BA%A3o_2008/sandbox" class="lien-ket"> -->
+                                wikipedia:</a>
+                        </div>
+                        <div class="hang-lien-he">
+                            <span class="bieu-tuong">⏰</span>
+                            <span>Thứ 2 - Thứ 6: 8h-17h</span>
+                        </div>
+                    </div>
+                    <div class="mo-ta-thanh-vien">
+                        Chuyên xử lý các yêu cầu đặc biệt, phàn nàn và hỗ trợ khách hàng VIP. Có kinh nghiệm 10+ năm trong ngành du lịch.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thành viên 2: Lê Tuấn Minh -->
+            <div class="the-thanh-vien">
+                <img src="image/Kiba_11.webp" alt="LÊ TUẤN MINH" class="anh-thanh-vien">
+                <div class="thong-tin-thanh-vien">
+                    <div class="ten-thanh-vien">LÊ TUẤN MINH</div>
+                    <div class="chuc-vu">👔 Trưởng Phòng CSKH</div>
+                    <div class="lien-he">
+                        <div class="hang-lien-he">
+                            <span class="bieu-tuong">📞</span>
+                            <span>0912 284 667</span>
+                        </div>
+                        <div class="hang-lien-he">
+                            <span class="bieu-tuong">📧</span>
+                            <span>https://bdi.edu.vn/</span>
+                        </div>
+                        <div>
+                            <!-- <a href="https://en.wikipedia.org/wiki/User:L%C3%AA_Tu%E1%BA%A5n_Minh_cnnt/sandbox#Th%C3%B4ng_tin_c%C3%A1_nh%C3%A2n/" -->
+                     <!-- class="lien-ket"> -->wikipedia:</a>
+                </p>
+                        </div>
+                        <div class="hang-lien-he">
+                            <span class="bieu-tuong">⏰</span>
+                            <span>Thứ 2 - Thứ 7: 8h-19h</span>
+                        </div>
+                    </div>
+                    <div class="mo-ta-thanh-vien">
+                        Hỗ trợ đặt vé, thay đổi lịch trình và tư vấn tour, giàu kinh nghiệm với khách quốc tế.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phần liên hệ thêm -->
+        <div class="phan-lien-he-them"> 
+            <h2>📍 Thông Tin Liên Hệ Công Ty</h2>
+            <div class="thong-tin-lien-he">
+                <div class="item-lien-he">
+                    <div class="icon">🏢</div>
+                    <h3>Địa Chỉ</h3>
+                    <p>
+                        Số 79, Đường DT 743<br>
+                        Phường Bình Hòa<br>
+                        TP. Hồ Chí Minh
+                    </p>
+                </div>
+
+                <div class="item-lien-he">
+                    <div class="icon">📞</div>
+                    <h3>Hotline</h3>
+                    <p>
+                        <a href="https://bdi.edu.vn/">0986 265 679</a><br>
+                        <a href="https://bdi.edu.vn/">0912 284 667</a><br>
+                        Hỗ trợ 24/7
+                    </p>
+                </div>
+
+                <div class="item-lien-he">
+                    <div class="icon">✉️</div>
+                    <h3>Email</h3>
+                    <p>
+                        <a href="https://bdi.edu.vn/">cskh@dulichtour.vn</a><br>
+                        <a href="https://bdi.edu.vn/">info@dulichtour.vn</a><br>
+                        Phản hồi trong 1 giờ
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="phan-chan-trang"></footer>
+
+    <script>
+        // Nút quay lại trang chủ
+        const nutQuayLaiCskh = document.getElementById("quay-ve-trang-chu");
+        if (nutQuayLaiCskh) {
+            nutQuayLaiCskh.addEventListener("click", () => {
+                window.location.href = "index.html";
+            });
+        }
+    </script>
+    <script src="menu.js"></script>
+    <script>
+        // Tải chân trang từ file riêng
+        fetch("footer.html")
+            .then(response => response.text())
+            .then(content => {
+                document.getElementById("phan-chan-trang").innerHTML = content;
+            })
+            .catch(error => console.log("Không thể tải chân trang:", error));
+    </script>
+</body>
+
+</html>
